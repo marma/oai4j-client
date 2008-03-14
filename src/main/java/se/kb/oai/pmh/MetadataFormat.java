@@ -22,6 +22,12 @@ import org.dom4j.Node;
 
 import se.kb.xml.XPathWrapper;
 
+/**
+ * This class has the information for a specific metadata format that 
+ * exists in the repository.
+ * 
+ * @author Oskar Grenholm, National Library of Sweden
+ */
 public class MetadataFormat {
 
     private static final String PREFIX_XPATH = "oai:metadataPrefix";
@@ -31,7 +37,13 @@ public class MetadataFormat {
     private String prefix;
     private String schema;
     private String namespace;
-    
+   
+    /**
+     * Create a <code>MetadataFormat</code> from a <code>&lt;metadataFormat&gt;</code> 
+     * node from the response.
+     * 
+     * @param node a <code>metadataFormat</code> node
+     */
     public MetadataFormat(Node node) {
         XPathWrapper xpath = new XPathWrapper(node);
         xpath.addNamespace(OAI_NS_PREFIX, OAI_NS_URI);
@@ -41,14 +53,29 @@ public class MetadataFormat {
         this.namespace = xpath.valueOf(NAMESPACE_XPATH);
     }   
 
+    /**
+     * Get the prefix for the metadata format in the repository.
+     * 
+     * @return the prefix
+     */
     public String getPrefix() {
         return prefix;
     }
 
+    /**
+     * Get the schema for the metadata format.
+     * 
+     * @return the schema
+     */
     public String getSchema() {
         return schema;
     }
     
+    /**
+     * Get the namespace for the metadata format.
+     * 
+     * @return the namespace
+     */
     public String getNamespace() {
         return namespace;
     }   

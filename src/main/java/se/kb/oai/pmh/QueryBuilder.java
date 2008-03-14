@@ -16,6 +16,12 @@
 
 package se.kb.oai.pmh;
 
+/**
+ * Helper class that builds the URL:s that corresponds to the different requests to the 
+ * OAI-PMH server.
+ * 
+ * @author Oskar Grenholm, National Library of Sweden
+ */
 public class QueryBuilder {
 
 	private enum Verb { Identify, GetRecord, ListIdentifiers, ListMetadataFormats, ListRecords, ListSets }
@@ -33,31 +39,66 @@ public class QueryBuilder {
 	private static final String RESUMPTION_TOKEN = "resumptionToken";
 	
 	private String basesurl;
+	private String extendedBasesurl;
 	
+	/**
+	 * Creates a <code>QueryBuilder</code> for a specific OAI-PMH server.
+	 * 
+	 * @param baseurl the base URL to the OAI-PMH server
+	 */
 	public QueryBuilder(String baseurl) {
-		this.basesurl = baseurl + QUESTION_MARK + VERB + EQUAL_SIGN;
+		this.basesurl = baseurl;
+		this.extendedBasesurl = baseurl + QUESTION_MARK + VERB + EQUAL_SIGN;
 	}
 	
-	public String getBasesurl() {
+	/**
+	 * Get the base URL.
+	 * 
+	 * @return the base URL
+	 */
+	public String getBaseUrl() {
 		return basesurl;
 	}
 
+	/**
+	 * Build the query for a <code>GetRecord</code> request.
+	 * 
+	 * @param identifier the identifier
+	 * @param metadataPrefix the metadata prefix
+	 * 
+	 * @return the full query URL as a <code>String</code>
+	 */
 	public String buildGetRecordQuery(String identifier, String metadataPrefix) {
-		StringBuffer buffer = new StringBuffer(basesurl);
+		StringBuffer buffer = new StringBuffer(extendedBasesurl);
 		buffer.append(Verb.GetRecord);
 		buffer.append(AMPERSAND).append(IDENTIFIER).append(EQUAL_SIGN).append(identifier);
 		buffer.append(AMPERSAND).append(METADATA_PREFIX).append(EQUAL_SIGN).append(metadataPrefix);
 		return buffer.toString();
 	}
 	
+	/**
+	 * Build the query for a <code>Identify</code> request.
+	 * 
+	 * @return the full query URL as a <code>String</code>
+	 */
 	public String buildIdentifyQuery() {
-		StringBuffer buffer = new StringBuffer(basesurl);
+		StringBuffer buffer = new StringBuffer(extendedBasesurl);
 		buffer.append(Verb.Identify);
 		return buffer.toString();
 	}
 	
+	/**
+	 * Build the query for a <code>ListIdentifiers</code> request.
+	 * 
+	 * @param metadataPrefix which metadata format
+     * @param from a start date, optional (may be <code>null</code>)
+     * @param until a stop date, optional (may be <code>null</code>)
+     * @param set a specific set, optional (may be <code>null</code>)
+     * 
+	 * @return the full query URL as a <code>String</code>
+	 */
 	public String buildListIdentifiersQuery(String metadataPrefix, String from, String until, String set) {
-		StringBuffer buffer = new StringBuffer(basesurl);
+		StringBuffer buffer = new StringBuffer(extendedBasesurl);
 		buffer.append(Verb.ListIdentifiers);
 		buffer.append(AMPERSAND).append(METADATA_PREFIX).append(EQUAL_SIGN).append(metadataPrefix);
 		if (from != null)
@@ -69,23 +110,47 @@ public class QueryBuilder {
 		return buffer.toString();
 	}
 	
+	/**
+	 * Build the query for an additional <code>ListIdentifiers</code> request 
+	 * with a <code>ResumptionToken</code>. 
+	 * 
+	 * @param token a resumption token returned from a previous request
+	 * @return the full query URL as a <code>String</code>
+	 */
 	public String buildListIdentifiersQuery(ResumptionToken token) {
-		StringBuffer buffer = new StringBuffer(basesurl);
+		StringBuffer buffer = new StringBuffer(extendedBasesurl);
 		buffer.append(Verb.ListIdentifiers);
 		buffer.append(AMPERSAND).append(RESUMPTION_TOKEN).append(EQUAL_SIGN).append(token.getId());
 		return buffer.toString();
 	}
 	
+	/**
+	 * Build the query for a <code>ListMetadtaFormats</code> request.
+	 * 
+	 * @param identifier the id, optional (may be <code>null</code>)
+	 * 
+	 * @return the full query URL as a <code>String</code>
+	 */
 	public String buildListMetadataFormatsQuery(String identifier) {
-		StringBuffer buffer = new StringBuffer(basesurl);
+		StringBuffer buffer = new StringBuffer(extendedBasesurl);
 		buffer.append(Verb.ListMetadataFormats);
 		if (identifier != null)
 			buffer.append(AMPERSAND).append(IDENTIFIER).append(EQUAL_SIGN).append(identifier);
 		return buffer.toString();
 	}
 	
+	/**
+	 * Build the query for a <code>ListRecords</code> request.
+	 * 
+	 * @param metadataPrefix which metadata format
+     * @param from a start date, optional (may be <code>null</code>)
+     * @param until a stop date, optional (may be <code>null</code>)
+     * @param set a specific set, optional (may be <code>null</code>)
+	 * 
+	 * @return the full query URL as a <code>String</code>
+	 */
 	public String buildListRecordsQuery(String metadataPrefix, String from, String until, String set) {
-		StringBuffer buffer = new StringBuffer(basesurl);
+		StringBuffer buffer = new StringBuffer(extendedBasesurl);
 		buffer.append(Verb.ListRecords);
 		buffer.append(AMPERSAND).append(METADATA_PREFIX).append(EQUAL_SIGN).append(metadataPrefix);
 		if (from != null)
@@ -97,21 +162,40 @@ public class QueryBuilder {
 		return buffer.toString();
 	}
 	
+	/**
+	 * Build the query for an additional <code>ListRecords</code> request 
+	 * with a <code>ResumptionToken</code>. 
+	 * 
+	 * @param token a resumption token returned from a previous request
+	 * @return the full query URL as a <code>String</code>
+	 */
 	public String buildListRecordsQuery(ResumptionToken token) {
-		StringBuffer buffer = new StringBuffer(basesurl);
+		StringBuffer buffer = new StringBuffer(extendedBasesurl);
 		buffer.append(Verb.ListRecords);
 		buffer.append(AMPERSAND).append(RESUMPTION_TOKEN).append(EQUAL_SIGN).append(token.getId());
 		return buffer.toString();
 	}
 	
+	/**
+	 * Build the query for a <code>ListSets</code> request.
+	 * 
+	 * @return the full query URL as a <code>String</code>
+	 */
 	public String buildListSetsQuery() {
-		StringBuffer buffer = new StringBuffer(basesurl);
+		StringBuffer buffer = new StringBuffer(extendedBasesurl);
 		buffer.append(Verb.ListSets);
 		return buffer.toString();
 	}
 	
+	/**
+	 * Build the query for an additional <code>ListSets</code> request 
+	 * with a <code>ResumptionToken</code>. 
+	 * 
+	 * @param token a resumption token returned from a previous request
+	 * @return the full query URL as a <code>String</code>
+	 */
 	public String buildListSetsQuery(ResumptionToken token) {
-		StringBuffer buffer = new StringBuffer(basesurl);
+		StringBuffer buffer = new StringBuffer(extendedBasesurl);
 		buffer.append(Verb.ListSets);
 		buffer.append(AMPERSAND).append(RESUMPTION_TOKEN).append(EQUAL_SIGN).append(token.getId());
 		return buffer.toString();

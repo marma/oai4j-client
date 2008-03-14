@@ -22,12 +22,23 @@ import java.util.List;
 import org.dom4j.Document;
 import org.dom4j.Node;
 
+/**
+ * Class that represents the response from a <code>ListSets</code> request.
+ * 
+ * @author Oskar Grenholm, National Library of Sweden
+ */
 public class SetsList extends ResponseBase {
 
     private static final String SET_XPATH = "oai:ListSets/oai:set";
     
     private List<Set> sets;
     
+    /**
+     * Creates an <code>SetsList</code> from the returned response.
+     * 
+     * @param document the response
+     * @throws ErrorResponseException
+     */
     public SetsList(Document document) throws ErrorResponseException {
         super(document);
         
@@ -37,11 +48,36 @@ public class SetsList extends ResponseBase {
         }
     }
     
+    /**
+     * Get the size of the list.
+     * 
+     * @return the size
+     */
     public int size() {
         return sets.size();
     }
 
+    /**
+     * Get the sets as a list of <code>Sets</code>.
+     * 
+     * @return a list of sets
+     */    
     public List<Set> asList() {
         return sets;
+    }
+    
+    /**
+     * Get the <code>ResumptionToken</code>, if any, for this response.
+     * 
+     * @return the <code>ResumptionToken</code>, or <code>null</code>
+     * if none available
+     */
+    public ResumptionToken getResumptionToken() {
+        if (super.resumptionToken == null 
+                || super.resumptionToken.getId() == null  
+                || super.resumptionToken.getId().length() == 0)
+            return null;
+        
+        return super.resumptionToken;
     }
 }

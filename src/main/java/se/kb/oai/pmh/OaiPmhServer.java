@@ -24,13 +24,15 @@ import org.dom4j.io.SAXReader;
 import se.kb.oai.OAIException;
 
 /**
- * Class that acts as a facade for an OAI-PMH server. 
+ * Class that acts as a facade for an OAI-PMH server. Has methods 
+ * that corresponds to the different verbs in the OAI-PMH specification 
+ * and that will return appropriate objects based on the response.
+ * <p>
+ * For more about the different verbs, requests and responses in the OAI-PMH specification,
+ * see <a href="http://www.openarchives.org/OAI/openarchivesprotocol.html">
+ * http://www.openarchives.org/OAI/openarchivesprotocol.html</a>. 
  * 
- * Has methods that corresponds to the different verbs in the OAI-PMH 
- * specification and that will return appropriate objects based on 
- * the response.
- * 
- * @author oskar
+ * @author Oskar Grenholm, National Library of Sweden
  */
 public class OaiPmhServer {
     
@@ -40,7 +42,7 @@ public class OaiPmhServer {
     /**
      * Creates an <code>OaiPmhServer</code> with the given base URL.
      * 
-     * @param url Base URL that points to an OAI-PMH server.
+     * @param url base URL that points to an OAI-PMH server
      */
     public OaiPmhServer(String url) {
         this.builder = new QueryBuilder(url);
@@ -50,16 +52,31 @@ public class OaiPmhServer {
     /**
      * Creates an <code>OaiPmhServer</code> with the given base URL.
      * 
-     * @param url Base URL that points to an OAI-PMH server.
+     * @param url base URL that points to an OAI-PMH server
      */
     public OaiPmhServer(URL url) {
         this(url.toString());
     }
     
+    /**
+     * Get the base URL to the OAI-PMH server.
+     * 
+     * @return the base URL
+     */
     public String getBaseUrl() {
-        return builder.getBasesurl();
+        return builder.getBaseUrl();
     }
     
+    /**
+     * Send a GetRecord request to the OAI-PMH server with
+     * the specified parameters.
+     * 
+     * @param identifier id to get a Record for
+     * @param metadataPrefix which metadata format 
+     * 
+     * @return the response from the server
+     * @throws OAIException
+     */
     public Record getRecord(String identifier, String metadataPrefix) throws OAIException {
         try {
         	String query = builder.buildGetRecordQuery(identifier, metadataPrefix);
@@ -72,6 +89,12 @@ public class OaiPmhServer {
         }
     }
     
+    /**
+     * Send a request for the OAI-PMH server to Identify it self.
+     * 
+     * @return the response from the server
+     * @throws OAIException
+     */
     public Identification identify() throws OAIException {
         try {
         	String query = builder.buildIdentifyQuery();
@@ -84,10 +107,31 @@ public class OaiPmhServer {
         }   
     }
     
+    /**
+     * Send a request to the OAI-PMH server that it should list all 
+     * identifiers that has metadata in the specified format.
+     * 
+     * @param metadataPrefix which metadata format
+     * 
+     * @return a list of identifiers
+     * @throws OAIException
+     */
     public IdentifiersList listIdentifiers(String metadataPrefix) throws OAIException {
         return listIdentifiers(metadataPrefix, null, null, null);
     }
            
+    /**
+     * Send a request to the OAI-PMH server that it should list all 
+     * identifiers that matches the given parameters.
+     * 
+     * @param metadataPrefix which metadata format
+     * @param from a start date, optional (may be <code>null</code>)
+     * @param until a stop date, optional (may be <code>null</code>)
+     * @param set a specific set, optional (may be <code>null</code>)
+     * 
+     * @return a list of identifiers
+     * @throws OAIException
+     */
     public IdentifiersList listIdentifiers(String metadataPrefix, String from, String until, String set) throws OAIException {
         try {
         	String query = builder.buildListIdentifiersQuery(metadataPrefix, from, until, set);
@@ -100,6 +144,15 @@ public class OaiPmhServer {
         }   
     }
     
+    /**
+     * List next set of identifiers not returned in the previous response from 
+     * a call to listIdentifiers().  
+     * 
+     * @param resumptionToken a resumption token returned from a previous call
+     * 
+     * @return a list of identifiers
+     * @throws OAIException
+     */
     public IdentifiersList listIdentifiers(ResumptionToken resumptionToken) throws OAIException {
         try {
         	String query = builder.buildListIdentifiersQuery(resumptionToken);
@@ -112,10 +165,29 @@ public class OaiPmhServer {
         }   
     }
     
+    /**
+     * Send a request for the OAI-PMH server to return a list of Records.
+     * 
+     * @param metadataPrefix which metadata format
+     * 
+     * @return a list of records
+     * @throws OAIException
+     */
     public RecordsList listRecords(String metadataPrefix) throws OAIException {
         return listRecords(metadataPrefix, null, null, null);
     }
     
+    /**
+     * Send a request for the OAI-PMH server to return a list of Records.
+     * 
+     * @param metadataPrefix which metadata format
+     * @param from a start date, optional (may be <code>null</code>)
+     * @param until a stop date, optional (may be <code>null</code>)
+     * @param set a specific set, optional (may be <code>null</code>)
+     * 
+     * @return a lsit of records
+     * @throws OAIException
+     */
     public RecordsList listRecords(String metadataPrefix, String from, String until, String set) throws OAIException {
         try {
         	String query = builder.buildListRecordsQuery(metadataPrefix, from, until, set);
@@ -128,6 +200,15 @@ public class OaiPmhServer {
         }
     }
     
+    /**
+     * List next set of records not returned in the previous response from 
+     * a call to listRecords().  
+     * 
+     * @param resumptionToken a resumption token returned from a previous call
+     * 
+     * @return a list of records
+     * @throws OAIException
+     */
     public RecordsList listRecords(ResumptionToken resumptionToken) throws OAIException {
         try {
         	String query = builder.buildListRecordsQuery(resumptionToken);
@@ -140,10 +221,23 @@ public class OaiPmhServer {
         }
     }
     
+    /**
+     * Ask the OAI-PMH server to list all metadata formats it holds.
+     * 
+     * @return a list of available metadata formats 
+     * @throws OAIException
+     */
     public MetadataFormatsList listMetadataFormats() throws OAIException {
         return listMetadataFormats(null);
     }
     
+    /**
+     * Ask the OAI-PMH server to list all metadata formats it holds
+     * for the specified identifier.
+     * 
+     * @return a list of available metadata formats 
+     * @throws OAIException
+     */
     public MetadataFormatsList listMetadataFormats(String identifier) throws OAIException {
         try {
         	String query = builder.buildListMetadataFormatsQuery(identifier);
@@ -156,6 +250,12 @@ public class OaiPmhServer {
         }   
     }
     
+    /**
+     * List all sets the OAI-PMH server has.
+     * 
+     * @return a list of sets
+     * @throws OAIException
+     */
     public SetsList listSets() throws OAIException {
         try {
         	String query = builder.buildListSetsQuery();
@@ -168,6 +268,15 @@ public class OaiPmhServer {
         }   
     }    
     
+    /**
+     * List next set of sets not returned in the previous response from 
+     * a call to listSets().  
+     * 
+     * @param resumptionToken
+     * 
+     * @return a list of sets
+     * @throws OAIException
+     */
     public SetsList listSets(ResumptionToken resumptionToken) throws OAIException {
         try {
         	String query = builder.buildListSetsQuery(resumptionToken);

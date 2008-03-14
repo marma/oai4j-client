@@ -16,7 +16,6 @@
 
 package se.kb.oai.pmh;
 
-
 import static se.kb.oai.pmh.ResponseBase.*;
 
 import java.util.List;
@@ -26,6 +25,13 @@ import org.dom4j.Node;
 
 import se.kb.xml.XPathWrapper;
 
+/**
+ * Class that holds the information returned in the <code>&lt;header&gt;</code> 
+ * part of a response. The verbs that has responses that includes a header
+ * are <code>GetRecord</code>, <code>ListRecords</code> and <code>ListIdentifiers</code>.
+ * 
+ * @author Oskar Grenholm, National Library of Sweden
+ */
 public class Header {
     
     private static final String IDENTIFIER_XPATH = "oai:identifier";
@@ -36,6 +42,11 @@ public class Header {
     private String datestamp;
     private List<String> setSpecs;
     
+    /**
+     * Creates a <code>Header</code> object.
+     * 
+     * @param node the <code>&lt;header&gt;</code> node
+     */
     public Header(Node node) {
         XPathWrapper xpath = new XPathWrapper(node);
         xpath.addNamespace(OAI_NS_PREFIX, OAI_NS_URI);
@@ -48,14 +59,29 @@ public class Header {
         }
     }
 
+    /**
+     * Get the identifier.
+     * 
+     * @return the identifier
+     */
     public String getIdentifier() {
         return identifier;
     }
     
+    /**
+     * Get the datestamp.
+     * 
+     * @return the datestamp
+     */
     public String getDatestamp() {
         return datestamp;
     }    
 
+    /**
+     * Get a list of sets.
+     * 
+     * @return a list of sets
+     */
     public List<String> getSetSpecs() {
         return setSpecs;
     }

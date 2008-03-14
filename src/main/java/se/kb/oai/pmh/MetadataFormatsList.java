@@ -22,12 +22,24 @@ import java.util.List;
 import org.dom4j.Document;
 import org.dom4j.Node;
 
+/**
+ * This class represents the response from a <code>ListMetadataFormats</code> request 
+ * to the OAI-PMH server.
+ * 
+ * @author Oskar Grenholm, National Library of Sweden
+ */
 public class MetadataFormatsList extends ResponseBase {
 
     private static final String METADATAFORMAT_XPATH = "oai:ListMetadataFormats/oai:metadataFormat";
     
     private List<MetadataFormat> metadataFormats;
     
+    /**
+     * Creates a <code>MetadataFormatsList</code> from the returned response.
+     * 
+     * @param document the response
+     * @throws ErrorResponseException
+     */
     public MetadataFormatsList(Document document) throws ErrorResponseException {
         super(document);
         
@@ -37,10 +49,20 @@ public class MetadataFormatsList extends ResponseBase {
         }
     }
     
+    /**
+     * Get the size of the list.
+     * 
+     * @return the size
+     */
     public int size() {
         return metadataFormats.size();
     }
     
+    /**
+     * Get the metadata formats as a list of <code>MetadataFormats</code>.
+     * 
+     * @return a list of metadata formats
+     */
     public List<MetadataFormat> asList() {
         return metadataFormats;
     } 

@@ -18,20 +18,52 @@ package se.kb.oai.pmh;
 
 import org.dom4j.Element;
 
+/**
+ * This class represents the <code>resumption token</code> returned from a 
+ * list request when not all of the content of the query fits in one response. 
+ * You can use it to get another response that has the next set of content 
+ * returned from the query. (Which in turn may have a new resumption token.)
+ * <p>
+ * The verbs that has responses that can contain a resumption token are:
+ * <ul>
+ * 	<li> <code>ListIdentifiers</code>
+ * 	<li> <code>ListRecords</code>
+ * 	<li> <code>ListSets</code>
+ * </ul>
+ * 
+ * @author Oskar Grenholm, National Library of Sweden
+ *
+ */
 public class ResumptionToken {
 
     private String id;
     private String expirationDate;
     
+    /**
+     * Create a <code>ResumptionToken</code> from the <code>&lt;resumptionToken&gt;</code>
+     * element of a response.
+     * 
+     * @param element
+     */
     public ResumptionToken(Element element) {
         this.id = element.getTextTrim();
         this.expirationDate = element.attributeValue("expirationDate");
     }    
 
+    /**
+     * Get the id of this resumption token.
+     * 
+     * @return the id
+     */
     public String getId() {
         return id;
     }
     
+    /**
+     * Get the date when this resumption token expires.
+     * 
+     * @return the date
+     */
     public String getExpirationDate() {
         return expirationDate;
     }

@@ -26,6 +26,12 @@ import org.dom4j.Node;
 
 import se.kb.xml.XPathWrapper;
 
+/**
+ * A set is a tool for selective harvesting from a repository. A record can
+ * be a member of one or more sets. This class represents a specific set.
+ * 
+ * @author Oskar Grenholm, National Library of Sweden
+ */
 public class Set {
 
     private static final String SPEC_XPATH = "oai:setSpec";
@@ -36,6 +42,12 @@ public class Set {
     private String name;
     private List<Element> descriptions;
     
+    /**
+     * Create a <code>Set</code> from the <code>&lt;set&gt;</code> element 
+     * of a <code>ListSets</code> response.
+     * 
+     * @param node
+     */
     public Set(Node node) {
         XPathWrapper xpath = new XPathWrapper(node);
         xpath.addNamespace(OAI_NS_PREFIX, OAI_NS_URI);
@@ -48,14 +60,30 @@ public class Set {
         }
     }
 
+    /**
+     * Get the set spec (a short name or id for the set).
+     * This is used in the queries that take a set parameter.
+     * 
+     * @return the set spec
+     */
     public String getSpec() {
         return spec;
     }
 
+    /**
+     * Get the name of this set.
+     * 
+     * @return the name
+     */
     public String getName() {
         return name;
     }
     
+    /**
+     * Get the descriptions of this set.
+     * 
+     * @return a list of descriptions
+     */
     public List<Element> getDescriptions() {
         return descriptions;
     }

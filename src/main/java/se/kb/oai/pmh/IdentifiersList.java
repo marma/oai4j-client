@@ -22,12 +22,23 @@ import java.util.List;
 import org.dom4j.Document;
 import org.dom4j.Node;
 
+/**
+ * Class that represents the response from a <code>ListIdentifiers</code> request.
+ * 
+ * @author Oskar Grenholm, National Library of Sweden
+ */
 public class IdentifiersList extends ResponseBase {
 
     private static final String HEADER_XPATH = "oai:ListIdentifiers/oai:header";
       
     private List<Header> headers;
     
+    /**
+     * Creates an <code>IdentifiersList</code> from the returned response.
+     * 
+     * @param document the response
+     * @throws ErrorResponseException
+     */
     public IdentifiersList(Document document) throws ErrorResponseException {
         super(document);
 
@@ -37,14 +48,30 @@ public class IdentifiersList extends ResponseBase {
         } 
     }
     
+    /**
+     * Get the size of the list.
+     * 
+     * @return the size
+     */
     public int size() {
         return headers.size();
     }
     
+    /**
+     * Get the identifiers as a list of <code>Headers</code>.
+     * 
+     * @return a list of identifiers
+     */
     public List<Header> asList() {
         return headers;
     }
     
+    /**
+     * Get the <code>ResumptionToken</code>, if any, for this response.
+     * 
+     * @return the <code>ResumptionToken</code>, or <code>null</code>
+     * if none available
+     */
     public ResumptionToken getResumptionToken() {
         if (super.resumptionToken == null 
                 || super.resumptionToken.getId() == null  

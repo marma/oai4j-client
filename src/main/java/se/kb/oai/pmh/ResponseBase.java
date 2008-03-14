@@ -21,13 +21,18 @@ import org.dom4j.Element;
 
 import se.kb.xml.XPathWrapper;
 
+/**
+ * Abstract base class that represents a response from the OAI-PMH server.
+ * 
+ * @author Oskar Grenholm, National Library of Sweden
+ */
 public abstract class ResponseBase {
 
     public static final String OAI_NS_PREFIX = "oai";
     public static final String OAI_NS_URI = "http://www.openarchives.org/OAI/2.0/";
     
-    private static final String RESPONSEDATE_XPATH = "oai:responseDate";
-    private static final String RESUMPTIONTOKEN_XPATH = "*/oai:resumptionToken";
+    private static final String RESPONSE_DATE_XPATH = "oai:responseDate";
+    private static final String RESUMPTION_TOKEN_XPATH = "*/oai:resumptionToken";
     private static final String ERROR_XPATH = "oai:error";
     
     
@@ -36,27 +41,43 @@ public abstract class ResponseBase {
     protected String responseDate;
     protected ResumptionToken resumptionToken;
     
+    /**
+     * Create a <code>ResponseBase</code> from a response. 
+     * 
+     * @param document the response
+     * @throws ErrorResponseException
+     */
     public ResponseBase(Document document) throws ErrorResponseException {
         Element root = document.getRootElement();
         
         this.xpath = new XPathWrapper(root);
         xpath.addNamespace(OAI_NS_PREFIX, OAI_NS_URI);
         this.response = document;        
-        this.responseDate = xpath.valueOf(RESPONSEDATE_XPATH);
+        this.responseDate = xpath.valueOf(RESPONSE_DATE_XPATH);
                 
-        Element token = xpath.selectSingleElement(RESUMPTIONTOKEN_XPATH);
+        Element token = xpath.selectSingleElement(RESUMPTION_TOKEN_XPATH);
         this.resumptionToken = token != null ? new ResumptionToken(token) : null; 
         
         Element error = xpath.selectSingleElement(ERROR_XPATH);
         if (error != null) {
-        	throw new ErrorResponseException(error.attributeValue("code"), error.getTextTrim());
+        	throw new ErrorResponseException(error);
         }
     }    
     
+    /**
+     * Get the xml-document of the full response from the server.
+     * 
+     * @return the response
+     */
     public Document getResponse() {
         return response;
     }
     
+    /**
+     * Get the date the response was returned.
+     * 
+     * @return the response date
+     */
     public String getResponseDate() {
         return responseDate;
     }

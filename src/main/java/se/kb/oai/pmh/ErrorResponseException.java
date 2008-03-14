@@ -16,11 +16,34 @@
 
 package se.kb.oai.pmh;
 
+import org.dom4j.Element;
+
 import se.kb.oai.OAIException;
 
+/**
+ * Exception that is thrown when the response from the OAI-PMH server
+ * has <code>&lt;error&gt;</code> elements in it.
+ * 
+ * There are eight different error codes returned:
+ * 
+ * <ul>
+ * 	<li> badArgument
+ * 	<li> badResumptionToken
+ * 	<li> badVerb
+ * 	<li> cannotDisseminateFormat
+ * 	<li> idDoesNotExist
+ * 	<li> noRecordsMatch
+ * 	<li> noMetadataFormats
+ * 	<li> noSetHierarchy
+ * </ul>
+ * 
+ * @author Oskar Grenholm, National Library of Sweden
+ */
 public class ErrorResponseException extends OAIException {
 	
 	private static final long serialVersionUID = -2010182612617642664L;
+	
+	private static final String ERROR_CODE_ATTR = "code";
 	
 	public static final String BAD_ARGUMENT = "badArgument";
 	public static final String BAD_RESUMPTION_TOKEN = "badResumptionToken";
@@ -34,16 +57,32 @@ public class ErrorResponseException extends OAIException {
 	private String code;
 	private String message;
 	
-	public ErrorResponseException(String code, String message) {
+	/**
+	 * Creates an <code>ErrorResponseException</code> with 
+	 * the returned error code and error message.
+	 * 
+	 * @param error the <code>&lt;error&gt;</code> element
+	 */
+	public ErrorResponseException(Element error) {
 		super();
-		this.code = code;
-		this.message = message;
+		this.code = error.attributeValue(ERROR_CODE_ATTR);
+		this.message = error.getTextTrim();
 	}
 
+	/**
+	 * Get the error code.
+	 * 
+	 * @return the error code
+	 */
 	public String getCode() {
 		return code;
 	}
 
+	/**
+	 * Get the error message.
+	 * 
+	 * @return the error message
+	 */
 	public String getMessage() {
 		return message;
 	}	

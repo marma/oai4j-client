@@ -25,6 +25,13 @@ import org.dom4j.Node;
 import se.kb.xml.XMLUtils;
 import se.kb.xml.XPathWrapper;
 
+/**
+ * The <code>Record</code> class represents the data returned for a 
+ * <code>GetRecord</code> or <code>ListRecords</code> request. It 
+ * holds the actual metadata content.
+ * 
+ * @author Oskar Grenholm, National Library of Sweden
+ */
 public class Record extends ResponseBase {
 
     private static final String RECORD_XPATH = "oai:GetRecord/oai:record";
@@ -36,10 +43,26 @@ public class Record extends ResponseBase {
     private Element metadata;
     private Element about;
     
+    /**
+     * Creates a <code>Record</code> from the response from a 
+     * <code>GetRecord</code> request.
+     * 
+     * @param document the response
+     * @throws ErrorResponseException
+     */
     public Record(Document document) throws ErrorResponseException {               
         this(document, null); 
     }  
     
+    /**
+     * Creates a <code>Record</code> from  from a <code>ListRecords</code> 
+     * response and a specific <code>&lt;record&gt;</code> element in that
+     * response. 
+     * 
+     * @param document the response
+     * @param record a <code>&lt;record&gt;</code> element
+     * @throws ErrorResponseException
+     */
     public Record(Document document, Node record) throws ErrorResponseException {
         super(document);
         
@@ -55,18 +78,40 @@ public class Record extends ResponseBase {
         this.about = xpath.selectSingleElement(ABOUT_XPATH);  
     }    
     
+    /**
+     * Get the <code>Header</code> with the information 
+     * about this <code>Record</code>.
+     * 
+     * @return a <code>Header</code> 
+     */
     public Header getHeader() {
         return header;
     }
 
+    /**
+     * Get the metadata contained in the <code>metadata</code> element
+     * of this <code>Record</code>.
+     * 
+     * @return the metadata as xml
+     */
     public Element getMetadata() {
         return metadata;
     }
     
+    /**
+    * Get the xml representation of the metadata as a <code>String</code>.
+    * 
+    * @return the metadata as a <code>String</code>
+    */
     public String getMetadataAsString() throws IOException {
     	return XMLUtils.xmlToString(getMetadata());
     }
 
+    /**
+     * Get the information about this <code>Record</code>.
+     * 
+     * @return the about information
+     */
     public Element getAbout() {
         return about;
     }    
