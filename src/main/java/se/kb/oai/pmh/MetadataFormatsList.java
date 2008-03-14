@@ -19,8 +19,8 @@ package se.kb.oai.pmh;
 import java.util.LinkedList;
 import java.util.List;
 
+import org.dom4j.Document;
 import org.dom4j.Node;
-import org.w3c.dom.Document;
 
 public class MetadataFormatsList extends ResponseBase {
 

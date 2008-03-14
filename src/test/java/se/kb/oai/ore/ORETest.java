@@ -18,4 +18,6 @@ public class ORETest {
 		ResourceMap map = new ResourceMap(new URI("http://test.kb.se/rem/"));
 		assertEquals("http://test.kb.se/rem/#aggregation", map.getAggregation().getId().toString());
     }
+	
+	
 }

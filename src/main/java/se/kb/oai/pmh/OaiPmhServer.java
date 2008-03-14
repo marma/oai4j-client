@@ -18,14 +18,10 @@ package se.kb.oai.pmh;
 
 import java.net.URL;
 
-import se.kb.oai.OAIException;
+import org.dom4j.Document;
+import org.dom4j.io.SAXReader;
 
-import ORG.oclc.oai.harvester2.verb.GetRecord;
-import ORG.oclc.oai.harvester2.verb.Identify;
-import ORG.oclc.oai.harvester2.verb.ListIdentifiers;
-import ORG.oclc.oai.harvester2.verb.ListMetadataFormats;
-import ORG.oclc.oai.harvester2.verb.ListRecords;
-import ORG.oclc.oai.harvester2.verb.ListSets;
+import se.kb.oai.OAIException;
 
 /**
  * Class that acts as a facade for an OAI-PMH server. 
@@ -38,7 +34,8 @@ import ORG.oclc.oai.harvester2.verb.ListSets;
  */
 public class OaiPmhServer {
     
-    private String baseurl;
+    private QueryBuilder builder;
+    private SAXReader reader;
     
     /**
      * Creates an <code>OaiPmhServer</code> with the given base URL.
@@ -46,7 +43,8 @@ public class OaiPmhServer {
      * @param url Base URL that points to an OAI-PMH server.
      */
     public OaiPmhServer(String url) {
-        this.baseurl = url;
+        this.builder = new QueryBuilder(url);
+        this.reader = new SAXReader();
     }
 
     /**
@@ -59,13 +57,14 @@ public class OaiPmhServer {
     }
     
     public String getBaseUrl() {
-        return baseurl;
+        return builder.getBasesurl();
     }
     
     public Record getRecord(String identifier, String metadataPrefix) throws OAIException {
         try {
-            GetRecord getRecord = new GetRecord(baseurl, identifier, metadataPrefix);
-            return new Record(getRecord.getDocument());
+        	String query = builder.buildGetRecordQuery(identifier, metadataPrefix);
+        	Document document = reader.read(query);
+            return new Record(document);
         } catch (ErrorResponseException e) {
         	throw e;
         } catch (Exception e) {
@@ -75,8 +74,9 @@ public class OaiPmhServer {
     
     public Identification identify() throws OAIException {
         try {
-            Identify identify = new Identify(baseurl);
-            return new Identification(identify.getDocument());
+        	String query = builder.buildIdentifyQuery();
+        	Document document = reader.read(query);
+            return new Identification(document);
         } catch (ErrorResponseException e) {
         	throw e;
         } catch (Exception e) {
@@ -85,13 +85,14 @@ public class OaiPmhServer {
     }
     
     public IdentifiersList listIdentifiers(String metadataPrefix) throws OAIException {
-        return listIdentifiers(null, null, null, metadataPrefix);
+        return listIdentifiers(metadataPrefix, null, null, null);
     }
            
-    public IdentifiersList listIdentifiers(String from, String until, String set, String metadataPrefix) throws OAIException {
+    public IdentifiersList listIdentifiers(String metadataPrefix, String from, String until, String set) throws OAIException {
         try {
-            ListIdentifiers list = new ListIdentifiers(baseurl, from, until, set, metadataPrefix);
-            return new IdentifiersList(list.getDocument());
+        	String query = builder.buildListIdentifiersQuery(metadataPrefix, from, until, set);
+        	Document document = reader.read(query);
+            return new IdentifiersList(document);
         } catch (ErrorResponseException e) {
         	throw e;
         } catch (Exception e) {
@@ -101,8 +102,9 @@ public class OaiPmhServer {
     
     public IdentifiersList listIdentifiers(ResumptionToken resumptionToken) throws OAIException {
         try {
-            ListIdentifiers list = new ListIdentifiers(baseurl, resumptionToken.getId());
-            return new IdentifiersList(list.getDocument());
+        	String query = builder.buildListIdentifiersQuery(resumptionToken);
+        	Document document = reader.read(query);
+            return new IdentifiersList(document);
         } catch (ErrorResponseException e) {
         	throw e;
         } catch (Exception e) {
@@ -111,13 +113,14 @@ public class OaiPmhServer {
     }
     
     public RecordsList listRecords(String metadataPrefix) throws OAIException {
-        return listRecords(null, null, null, metadataPrefix);
+        return listRecords(metadataPrefix, null, null, null);
     }
     
-    public RecordsList listRecords(String from, String until, String set, String metadataPrefix) throws OAIException {
+    public RecordsList listRecords(String metadataPrefix, String from, String until, String set) throws OAIException {
         try {
-            ListRecords list = new ListRecords(baseurl, from, until, set, metadataPrefix);
-            return new RecordsList(list.getDocument());
+        	String query = builder.buildListRecordsQuery(metadataPrefix, from, until, set);
+        	Document document = reader.read(query);
+            return new RecordsList(document);
         } catch (ErrorResponseException e) {
         	throw e;
         } catch (Exception e) {
@@ -127,8 +130,9 @@ public class OaiPmhServer {
     
     public RecordsList listRecords(ResumptionToken resumptionToken) throws OAIException {
         try {
-            ListRecords list = new ListRecords(baseurl, resumptionToken.getId());
-            return new RecordsList(list.getDocument());
+        	String query = builder.buildListRecordsQuery(resumptionToken);
+        	Document document = reader.read(query);
+            return new RecordsList(document);
         } catch (ErrorResponseException e) {
         	throw e;
         } catch (Exception e) {
@@ -142,8 +146,9 @@ public class OaiPmhServer {
     
     public MetadataFormatsList listMetadataFormats(String identifier) throws OAIException {
         try {
-            ListMetadataFormats list = new ListMetadataFormats(baseurl, identifier);
-            return new MetadataFormatsList(list.getDocument());
+        	String query = builder.buildListMetadataFormatsQuery(identifier);
+        	Document document = reader.read(query);
+            return new MetadataFormatsList(document);
         } catch (ErrorResponseException e) {
         	throw e;
         } catch (Exception e) {
@@ -153,12 +158,25 @@ public class OaiPmhServer {
     
     public SetsList listSets() throws OAIException {
         try {
-            ListSets list = new ListSets(baseurl);
-            return new SetsList(list.getDocument());
+        	String query = builder.buildListSetsQuery();
+        	Document document = reader.read(query);
+            return new SetsList(document);
         } catch (ErrorResponseException e) {
         	throw e;
         } catch (Exception e) {
             throw new OAIException(e);
         }   
     }    
+    
+    public SetsList listSets(ResumptionToken resumptionToken) throws OAIException {
+        try {
+        	String query = builder.buildListSetsQuery(resumptionToken);
+        	Document document = reader.read(query);
+            return new SetsList(document);
+        } catch (ErrorResponseException e) {
+        	throw e;
+        } catch (Exception e) {
+            throw new OAIException(e);
+        }   
+    }
 }

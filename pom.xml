@@ -16,19 +16,9 @@
       <scope>test</scope>
     </dependency>
     <dependency>
-       <groupId>org.oclc</groupId>
-       <artifactId>oaiharvester2</artifactId>
-       <version>0.1.10</version>
-    </dependency>
-    <dependency>
        <groupId>dom4j</groupId>
        <artifactId>dom4j</artifactId>
        <version>1.6.1</version>
-    </dependency>
-    <dependency>
-       <groupId>log4j</groupId>
-       <artifactId>log4j</artifactId>
-       <version>1.2.14</version>
     </dependency>
     <dependency>
        <groupId>jaxen</groupId>
