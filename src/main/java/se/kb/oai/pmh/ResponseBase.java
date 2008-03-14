@@ -40,7 +40,7 @@ public abstract class ResponseBase {
     protected String responseDate;
     protected ResumptionToken resumptionToken;
     
-    public ResponseBase(Document document) throws PMHErrorResponseException {
+    public ResponseBase(Document document) throws ErrorResponseException {
         DOMReader reader = new DOMReader();
         Element root = reader.read(document).getRootElement();
         
@@ -54,7 +54,7 @@ public abstract class ResponseBase {
         
         Element error = xpath.selectSingleElement(ERROR_XPATH);
         if (error != null) {
-        	throw new PMHErrorResponseException(error.attributeValue("code"), error.getTextTrim());
+        	throw new ErrorResponseException(error.attributeValue("code"), error.getTextTrim());
         }
     }    
     

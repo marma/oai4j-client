@@ -1,3 +1,19 @@
+/*
+ * Copyright 2008 National Library of Sweden 
+ * 
+ * Licensed under the Apache License, Version 2.0 (the "License"); 
+ * you may not use this file except in compliance with the License. 
+ * You may obtain a copy of the License at 
+ * 
+ * 	http://www.apache.org/licenses/LICENSE-2.0 
+ *  
+ * Unless required by applicable law or agreed to in writing, software 
+ * distributed  under the License is distributed on an "AS IS" BASIS, 
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. 
+ * See the License for the specific language governing permissions and 
+ * limitations under the License.
+ */
+
 package se.kb.oai.pmh;
 
 import java.net.URL;
@@ -50,7 +66,7 @@ public class OaiPmhServer {
         try {
             GetRecord getRecord = new GetRecord(baseurl, identifier, metadataPrefix);
             return new Record(getRecord.getDocument());
-        } catch (PMHErrorResponseException e) {
+        } catch (ErrorResponseException e) {
         	throw e;
         } catch (Exception e) {
             throw new OAIException(e);
@@ -61,7 +77,7 @@ public class OaiPmhServer {
         try {
             Identify identify = new Identify(baseurl);
             return new Identification(identify.getDocument());
-        } catch (PMHErrorResponseException e) {
+        } catch (ErrorResponseException e) {
         	throw e;
         } catch (Exception e) {
             throw new OAIException(e);
@@ -76,7 +92,7 @@ public class OaiPmhServer {
         try {
             ListIdentifiers list = new ListIdentifiers(baseurl, from, until, set, metadataPrefix);
             return new IdentifiersList(list.getDocument());
-        } catch (PMHErrorResponseException e) {
+        } catch (ErrorResponseException e) {
         	throw e;
         } catch (Exception e) {
             throw new OAIException(e);
@@ -87,7 +103,7 @@ public class OaiPmhServer {
         try {
             ListIdentifiers list = new ListIdentifiers(baseurl, resumptionToken.getId());
             return new IdentifiersList(list.getDocument());
-        } catch (PMHErrorResponseException e) {
+        } catch (ErrorResponseException e) {
         	throw e;
         } catch (Exception e) {
             throw new OAIException(e);
@@ -102,7 +118,7 @@ public class OaiPmhServer {
         try {
             ListRecords list = new ListRecords(baseurl, from, until, set, metadataPrefix);
             return new RecordsList(list.getDocument());
-        } catch (PMHErrorResponseException e) {
+        } catch (ErrorResponseException e) {
         	throw e;
         } catch (Exception e) {
             throw new OAIException(e);
@@ -113,7 +129,7 @@ public class OaiPmhServer {
         try {
             ListRecords list = new ListRecords(baseurl, resumptionToken.getId());
             return new RecordsList(list.getDocument());
-        } catch (PMHErrorResponseException e) {
+        } catch (ErrorResponseException e) {
         	throw e;
         } catch (Exception e) {
             throw new OAIException(e);
@@ -128,7 +144,7 @@ public class OaiPmhServer {
         try {
             ListMetadataFormats list = new ListMetadataFormats(baseurl, identifier);
             return new MetadataFormatsList(list.getDocument());
-        } catch (PMHErrorResponseException e) {
+        } catch (ErrorResponseException e) {
         	throw e;
         } catch (Exception e) {
             throw new OAIException(e);
@@ -139,7 +155,7 @@ public class OaiPmhServer {
         try {
             ListSets list = new ListSets(baseurl);
             return new SetsList(list.getDocument());
-        } catch (PMHErrorResponseException e) {
+        } catch (ErrorResponseException e) {
         	throw e;
         } catch (Exception e) {
             throw new OAIException(e);

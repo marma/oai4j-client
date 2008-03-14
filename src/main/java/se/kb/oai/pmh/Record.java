@@ -39,11 +39,11 @@ public class Record extends ResponseBase {
     private Element metadata;
     private Element about;
     
-    public Record(Document document) throws PMHErrorResponseException {               
+    public Record(Document document) throws ErrorResponseException {               
         this(document, null); 
     }  
     
-    public Record(Document document, Node record) throws PMHErrorResponseException {
+    public Record(Document document, Node record) throws ErrorResponseException {
         super(document);
         
         if (record == null) 

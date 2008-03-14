@@ -31,7 +31,7 @@ public class RecordsList extends ResponseBase {
     
     private List<Record> records;
     
-    public RecordsList(Document document) throws PMHErrorResponseException {
+    public RecordsList(Document document) throws ErrorResponseException {
         super(document);
         
         this.records = new LinkedList<Record>();
