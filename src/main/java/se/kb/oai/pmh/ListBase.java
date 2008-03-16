@@ -4,10 +4,26 @@ import java.util.List;
 
 import org.dom4j.Document;
 
-public class ListBase<T> extends ResponseBase {
+/**
+ * Abstract base class that holds common functionality for the responses that
+ * return lists. Can be used to get the size of the list and the actual list
+ * of objects. For respones that don't return all of their results in one response,
+ * the <code>ResumptionToken</code> to get the next set of data can also be 
+ * retrieved.
+ * 
+ * @author Oskar Grenholm, National Library of Sweden
+ */
+public abstract class ListBase<T> extends ResponseBase {
 
     protected List<T> list;
     
+    /**
+     * Constructor.
+     * 
+     * @param the response
+     * 
+     * @throws ErrorResponseException
+     */
     public ListBase(Document document) throws ErrorResponseException {
         super(document);
     }
@@ -22,9 +38,9 @@ public class ListBase<T> extends ResponseBase {
     }
     
     /**
-     * Get a the content of the response as a list of type <code>T</code>.
+     * Get the content of the response as a list with objects of type <code>T</code>.
      * 
-     * @return a list with objects of type <code>T</code> 
+     * @return the list
      */
     public List<T> asList() {
         return list;

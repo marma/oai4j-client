@@ -23,7 +23,7 @@ import org.dom4j.Node;
 
 /**
  * This class represents the response from a <code>ListMetadataFormats</code> request 
- * to the OAI-PMH server. You can use it to get a list of <code>MetadataFormats</code>.
+ * to the OAI-PMH server. Can be used to get a list of <code>MetadataFormats</code>.
  * 
  * @author Oskar Grenholm, National Library of Sweden
  */

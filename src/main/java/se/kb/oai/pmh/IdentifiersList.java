@@ -23,7 +23,7 @@ import org.dom4j.Node;
 
 /**
  * Class that represents the response from a <code>ListIdentifiers</code> request.
- * You can use it to get a list of <code>Headers</code> that holds identifiers.
+ * Can be used to get a list of <code>Headers</code> that holds identifiers.
  *  
  * @author Oskar Grenholm, National Library of Sweden
  */

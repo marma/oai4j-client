@@ -23,7 +23,7 @@ import org.dom4j.Node;
 
 /**
  * Class that represents the response from a <code>ListRecords</code> request.
- * You can use it to get the list of <code>Records</code> that made up the
+ * Can be used to get the list of <code>Records</code> that made up the
  * response.
  * 
  * @author Oskar Grenholm, National Library of Sweden
