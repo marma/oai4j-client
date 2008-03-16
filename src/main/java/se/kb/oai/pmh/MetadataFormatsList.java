@@ -17,22 +17,19 @@
 package se.kb.oai.pmh;
 
 import java.util.LinkedList;
-import java.util.List;
 
 import org.dom4j.Document;
 import org.dom4j.Node;
 
 /**
  * This class represents the response from a <code>ListMetadataFormats</code> request 
- * to the OAI-PMH server.
+ * to the OAI-PMH server. You can use it to get a list of <code>MetadataFormats</code>.
  * 
  * @author Oskar Grenholm, National Library of Sweden
  */
-public class MetadataFormatsList extends ResponseBase {
+public class MetadataFormatsList extends ListBase<MetadataFormat> {
 
     private static final String METADATAFORMAT_XPATH = "oai:ListMetadataFormats/oai:metadataFormat";
-    
-    private List<MetadataFormat> metadataFormats;
     
     /**
      * Creates a <code>MetadataFormatsList</code> from the returned response.
@@ -43,27 +40,20 @@ public class MetadataFormatsList extends ResponseBase {
     public MetadataFormatsList(Document document) throws ErrorResponseException {
         super(document);
         
-        this.metadataFormats = new LinkedList<MetadataFormat>();
+        super.list = new LinkedList<MetadataFormat>();
         for(Node metadataFormat : xpath.selectNodes(METADATAFORMAT_XPATH)) {
-            metadataFormats.add(new MetadataFormat(metadataFormat));
+            list.add(new MetadataFormat(metadataFormat));
         }
     }
     
     /**
-     * Get the size of the list.
-     * 
-     * @return the size
+     * The response from a <code>ListMetadataFormats</code> request will never 
+     * have a resumption token, so this method will throw a <code>NoSuchMethodError</code>
+     * to prevent it from being used in that way.
      */
-    public int size() {
-        return metadataFormats.size();
+    @Override
+    public ResumptionToken getResumptionToken() {
+        throw new NoSuchMethodError("The response from the verb 'ListMetadataFormats' " +
+                                    "can't have a ResumptionToken!");
     }
-    
-    /**
-     * Get the metadata formats as a list of <code>MetadataFormats</code>.
-     * 
-     * @return a list of metadata formats
-     */
-    public List<MetadataFormat> asList() {
-        return metadataFormats;
-    } 
 }

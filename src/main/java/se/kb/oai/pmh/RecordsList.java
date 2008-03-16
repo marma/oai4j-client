@@ -17,22 +17,21 @@
 package se.kb.oai.pmh;
 
 import java.util.LinkedList;
-import java.util.List;
 
 import org.dom4j.Document;
 import org.dom4j.Node;
 
 /**
  * Class that represents the response from a <code>ListRecords</code> request.
+ * You can use it to get the list of <code>Records</code> that made up the
+ * response.
  * 
  * @author Oskar Grenholm, National Library of Sweden
  */
-public class RecordsList extends ResponseBase {
+public class RecordsList extends ListBase<Record> {
 
     private static final String RECORD_XPATH = "oai:ListRecords/oai:record";
     
-    private List<Record> records;
-
     /**
      * Creates a <code>RecordsList</code> from the returned response.
      * 
@@ -42,42 +41,9 @@ public class RecordsList extends ResponseBase {
     public RecordsList(Document document) throws ErrorResponseException {
         super(document);
         
-        this.records = new LinkedList<Record>();
+        super.list = new LinkedList<Record>();
         for (Node record : xpath.selectNodes(RECORD_XPATH)) {
-            records.add(new Record(document, record));
-        }      
-    }
-    
-    /**
-     * Get the size of the list.
-     * 
-     * @return the size
-     */
-    public int size() {
-        return records.size();
-    }
-    
-    /**
-     * Get the records as a list of <code>Records</code>.
-     * 
-     * @return a list of records
-     */
-    public List<Record> asList() {
-        return records;
-    }
-    
-    /**
-     * Get the <code>ResumptionToken</code>, if any, for this response.
-     * 
-     * @return the <code>ResumptionToken</code>, or <code>null</code>
-     * if none available
-     */
-    public ResumptionToken getResumptionToken() {
-        if (super.resumptionToken == null 
-                || super.resumptionToken.getId() == null  
-                || super.resumptionToken.getId().length() == 0)
-            return null;
-        
-        return super.resumptionToken;
-    }
+            list.add(new Record(document, record));
+        }
+    }    
 }

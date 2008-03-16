@@ -17,6 +17,7 @@
 package se.kb.oai.ore.impl;
 
 import java.util.List;
+import java.util.UUID;
 
 import org.dom4j.DocumentHelper;
 import org.dom4j.Element;
@@ -138,6 +139,6 @@ public class AtomSerializer extends SerializerBase {
 	}	
 	
 	protected String createAtomId() {
-		return "urn:uid:" + (int) (Math.random() * 1000);
+		return "urn:uuid:" + UUID.randomUUID().toString();
 	}
 }

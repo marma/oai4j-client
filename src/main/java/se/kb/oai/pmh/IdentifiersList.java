@@ -17,21 +17,19 @@
 package se.kb.oai.pmh;
 
 import java.util.LinkedList;
-import java.util.List;
 
 import org.dom4j.Document;
 import org.dom4j.Node;
 
 /**
  * Class that represents the response from a <code>ListIdentifiers</code> request.
- * 
+ * You can use it to get a list of <code>Headers</code> that holds identifiers.
+ *  
  * @author Oskar Grenholm, National Library of Sweden
  */
-public class IdentifiersList extends ResponseBase {
+public class IdentifiersList extends ListBase<Header> {
 
     private static final String HEADER_XPATH = "oai:ListIdentifiers/oai:header";
-      
-    private List<Header> headers;
     
     /**
      * Creates an <code>IdentifiersList</code> from the returned response.
@@ -42,42 +40,9 @@ public class IdentifiersList extends ResponseBase {
     public IdentifiersList(Document document) throws ErrorResponseException {
         super(document);
 
-        this.headers = new LinkedList<Header>();
+        super.list = new LinkedList<Header>();
         for(Node node : xpath.selectNodes(HEADER_XPATH)) {
-            headers.add(new Header(node));
+            list.add(new Header(node));
         } 
-    }
-    
-    /**
-     * Get the size of the list.
-     * 
-     * @return the size
-     */
-    public int size() {
-        return headers.size();
-    }
-    
-    /**
-     * Get the identifiers as a list of <code>Headers</code>.
-     * 
-     * @return a list of identifiers
-     */
-    public List<Header> asList() {
-        return headers;
-    }
-    
-    /**
-     * Get the <code>ResumptionToken</code>, if any, for this response.
-     * 
-     * @return the <code>ResumptionToken</code>, or <code>null</code>
-     * if none available
-     */
-    public ResumptionToken getResumptionToken() {
-        if (super.resumptionToken == null 
-                || super.resumptionToken.getId() == null  
-                || super.resumptionToken.getId().length() == 0)
-            return null;
-        
-        return super.resumptionToken;
     }
 }

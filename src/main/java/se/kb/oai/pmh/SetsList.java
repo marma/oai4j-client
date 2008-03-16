@@ -17,22 +17,20 @@
 package se.kb.oai.pmh;
 
 import java.util.LinkedList;
-import java.util.List;
 
 import org.dom4j.Document;
 import org.dom4j.Node;
 
 /**
  * Class that represents the response from a <code>ListSets</code> request.
+ * You can use it to get a list of <code>Sets</code>.
  * 
  * @author Oskar Grenholm, National Library of Sweden
  */
-public class SetsList extends ResponseBase {
+public class SetsList extends ListBase<Set> {
 
     private static final String SET_XPATH = "oai:ListSets/oai:set";
-    
-    private List<Set> sets;
-    
+        
     /**
      * Creates an <code>SetsList</code> from the returned response.
      * 
@@ -42,42 +40,9 @@ public class SetsList extends ResponseBase {
     public SetsList(Document document) throws ErrorResponseException {
         super(document);
         
-        this.sets = new LinkedList<Set>();
+        super.list = new LinkedList<Set>();
         for (Node set : xpath.selectNodes(SET_XPATH)) {
-            sets.add(new Set(set));
+            list.add(new Set(set));
         }
-    }
-    
-    /**
-     * Get the size of the list.
-     * 
-     * @return the size
-     */
-    public int size() {
-        return sets.size();
-    }
-
-    /**
-     * Get the sets as a list of <code>Sets</code>.
-     * 
-     * @return a list of sets
-     */    
-    public List<Set> asList() {
-        return sets;
-    }
-    
-    /**
-     * Get the <code>ResumptionToken</code>, if any, for this response.
-     * 
-     * @return the <code>ResumptionToken</code>, or <code>null</code>
-     * if none available
-     */
-    public ResumptionToken getResumptionToken() {
-        if (super.resumptionToken == null 
-                || super.resumptionToken.getId() == null  
-                || super.resumptionToken.getId().length() == 0)
-            return null;
-        
-        return super.resumptionToken;
     }
 }
