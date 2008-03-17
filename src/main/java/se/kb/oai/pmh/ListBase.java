@@ -7,7 +7,7 @@ import org.dom4j.Document;
 /**
  * Abstract base class that holds common functionality for the responses that
  * return lists. Can be used to get the size of the list and the actual list
- * of objects. For respones that don't return all of their results in one response,
+ * of objects. For responses that don't return all of their results in one response,
  * the <code>ResumptionToken</code> to get the next set of data can also be 
  * retrieved.
  * 

@@ -24,7 +24,7 @@ import org.dom4j.Node;
 /**
  * Class that represents the response from a <code>ListRecords</code> request.
  * Can be used to get the list of <code>Records</code> that made up the
- * response.
+ * response, i.e. <code>asList()</code> will return a <code>List&lt;Record&gt;</code>.
  * 
  * @author Oskar Grenholm, National Library of Sweden
  */

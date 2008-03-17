@@ -40,5 +40,20 @@
       </plugin>
     </plugins>
   </build>
+  
+  <reporting>
+    <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-javadoc-plugin</artifactId>
+        <configuration>
+        	<links>
+        		<value>http://java.sun.com/javase/6/docs/api/</value>
+        		<value>http://www.dom4j.org/apidocs/</value>
+        	</links>
+        </configuration>
+      </plugin>
+    </plugins>
+  </reporting>
 
 </project>

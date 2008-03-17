@@ -24,7 +24,7 @@ import se.kb.oai.OAIException;
  * Exception that is thrown when the response from the OAI-PMH server
  * has <code>&lt;error&gt;</code> elements in it.
  * 
- * There are eight different error codes returned:
+ * There are eight different error codes that can be returned:
  * 
  * <ul>
  * 	<li> badArgument

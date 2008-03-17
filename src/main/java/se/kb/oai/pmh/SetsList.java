@@ -23,7 +23,8 @@ import org.dom4j.Node;
 
 /**
  * Class that represents the response from a <code>ListSets</code> request.
- * Can be used to get a list of <code>Sets</code>.
+ * Can be used to get a list of <code>Sets</code>, i.e. <code>asList()</code> 
+ * will return a <code>List&lt;Set&gt;</code>.
  * 
  * @author Oskar Grenholm, National Library of Sweden
  */

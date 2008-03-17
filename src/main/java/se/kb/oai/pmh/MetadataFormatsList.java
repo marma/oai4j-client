@@ -23,7 +23,8 @@ import org.dom4j.Node;
 
 /**
  * This class represents the response from a <code>ListMetadataFormats</code> request 
- * to the OAI-PMH server. Can be used to get a list of <code>MetadataFormats</code>.
+ * to the OAI-PMH server. Can be used to get a list of <code>MetadataFormats</code>,
+ * i.e. <code>asList()</code> will return a <code>List&lt;MetadataFormat&gt;</code>.
  * 
  * @author Oskar Grenholm, National Library of Sweden
  */
@@ -47,8 +48,9 @@ public class MetadataFormatsList extends ListBase<MetadataFormat> {
     }
     
     /**
-     * The response from a <code>ListMetadataFormats</code> request will never 
-     * have a resumption token, so this method will throw a <code>NoSuchMethodError</code>
+     * Overrides <code>getResumptionToken</code> in <code>ListBase</code> and because
+     * the response from a <code>ListMetadataFormats</code> request will never 
+     * have a resumption token this method will throw a <code>NoSuchMethodError</code>
      * to prevent it from being used in that way.
      */
     @Override
