@@ -20,6 +20,13 @@ import static se.kb.oai.ore.OREConstants.*;
 
 import org.dom4j.QName;
 
+/**
+ * Class that represents metadata that can be set for an <code>Aggregation</code>
+ * or an <code>AggreagatedResource</code>. Only metadata from the Dublin Core elements
+ * (DC) namespace or the Dublin Core terms (DCTERMS) namespace can be created.
+ * 
+ * @author Oskar Grenholm, National Library of Sweden
+ */
 public class Metadata {
 
 	public enum Namespace { DC, DCTERMS }

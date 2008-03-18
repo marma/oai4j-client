@@ -22,6 +22,13 @@ import java.io.InputStream;
 import java.net.URI;
 import java.net.URISyntaxException;
 
+/**
+ * An aggregated resource is a resource, that together with other resources, 
+ * create an {@link Aggregation}. This class has the actual content of a 
+ * resource and also metadata about it.
+ * 
+ * @author Oskar Grenholm, National Library of Sweden
+ */
 public class AggregatedResource extends AggregateBase {
 	
 	public AggregatedResource(String id) throws URISyntaxException {

@@ -24,6 +24,20 @@ import org.dom4j.Element;
 
 import se.kb.oai.OAIException;
 
+/**
+ * A <code>ResourceMapFactory</code> will be used to create a {@link ResourceMap}. 
+ * It can either be a totally new <code>ResourceMap</code> or one that is parsed
+ * from an existing serialization of a <code>ResourceMap</code>. Different
+ * implementations of this interface will handle different serialization formats.
+ * <p>
+ * At the moment the Open Archive Initiative describes two possible formats:
+ * <ul>
+ * 	<li> Atom - <a href="http://www.openarchives.org/ore/0.2/atom-implementation">http://www.openarchives.org/ore/0.2/atom-implementation</a>
+ * 	<li> RDF/XML - <a href="http://www.openarchives.org/ore/0.2/rdfsyntax">http://www.openarchives.org/ore/0.2/rdfsyntax</a>
+ * </ul>
+ * 
+ * @author Oskar Grenholm, National Library of Sweden
+ */
 public interface ResourceMapFactory {
 
 	public ResourceMap newResourceMap(String uri) throws URISyntaxException;

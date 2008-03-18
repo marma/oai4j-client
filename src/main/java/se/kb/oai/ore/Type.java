@@ -16,6 +16,12 @@
 
 package se.kb.oai.ore;
 
+/**
+ * Class that are used for typing <code>Aggreagations</code> and
+ * <code>AggreagatedResources</code>.
+ * 
+ * @author Oskar Grenholm, National Library of Sweden
+ */
 public class Type {
 
 	private String value;

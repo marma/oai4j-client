@@ -26,6 +26,11 @@ import se.kb.oai.ore.ResourceMap;
 import se.kb.oai.ore.ResourceMapSerializer;
 import se.kb.xml.XMLUtils;
 
+/**
+ * Abstract base class for the different <code>ResourceMapSerializer</code> implementations.
+ * 
+ * @author Oskar Grenholm, National Library of Sweden
+ */
 public abstract class SerializerBase implements ResourceMapSerializer {
 
 	public void serializeToFile(File file, ResourceMap map) throws IOException {

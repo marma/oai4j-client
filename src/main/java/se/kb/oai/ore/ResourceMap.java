@@ -20,6 +20,14 @@ import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.Date;
 
+/**
+ * A resource map is a description of an {@link Aggregation} according to the OAI-ORE data model. 
+ * <code>ResourceMaps</code> can be serialized to a machine readable format, see {@link ResourceMapSerializer}. 
+ * This class will consist of the <code>Aggregation</code> it describes and some metadata concerning the 
+ * resource map itself. 
+ * 
+ * @author Oskar Grenholm, National Library of Sweden
+ */
 public class ResourceMap {
 
 	private URI id;

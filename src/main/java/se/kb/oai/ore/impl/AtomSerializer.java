@@ -29,6 +29,13 @@ import se.kb.oai.ore.Type;
 
 import static se.kb.oai.ore.impl.AtomConstants.*;
 
+/**
+ * The <code>AtomSerializer</code> class implements the {@link se.kb.oai.ore.ResourceMapSerializer} 
+ * interface to provide the functionality of serializing <code>ResourceMap</code> objects into
+ * Atom feeds.
+ * 
+ * @author Oskar Grenholm, National Library of Sweden
+ */
 public class AtomSerializer extends SerializerBase {
 			
 	@Override

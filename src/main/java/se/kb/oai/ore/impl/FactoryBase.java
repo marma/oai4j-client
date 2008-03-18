@@ -28,6 +28,11 @@ import se.kb.oai.OAIException;
 import se.kb.oai.ore.ResourceMap;
 import se.kb.oai.ore.ResourceMapFactory;
 
+/**
+ * Abstract base class for the different <code>ResourceMapFactory</code> implementations.
+ * 
+ * @author Oskar Grenholm, National Library of Sweden
+ */
 public abstract class FactoryBase implements ResourceMapFactory {
 
 	public ResourceMap newResourceMap(String uri) throws URISyntaxException {

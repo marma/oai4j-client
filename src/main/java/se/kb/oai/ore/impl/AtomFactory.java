@@ -40,6 +40,13 @@ import static se.kb.oai.ore.OREConstants.RDF_NS_PREFIX;
 import static se.kb.oai.ore.OREConstants.RDF_NS_URI;
 import static se.kb.oai.ore.impl.AtomConstants.*;
 
+/**
+ * The <code>AtomFactory</code> class implements the {@link se.kb.oai.ore.ResourceMapFactory} 
+ * interface to provide the functionality to parse Atom feeds and turn them into
+ * <code>ResourceMap</code> objects.
+ * 
+ * @author Oskar Grenholm, National Library of Sweden
+ */
 public class AtomFactory extends FactoryBase {
 	
 	@Override

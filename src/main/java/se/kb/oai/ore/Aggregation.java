@@ -21,6 +21,14 @@ import java.net.URISyntaxException;
 import java.util.LinkedList;
 import java.util.List;
 
+/**
+ * An aggregation is a set of related resources (see {@link AggregatedResource}), grouped 
+ * together such that the set can be treated as a single resource. This class is used to 
+ * manage the individual resources and also holds information for the aggregation as 
+ * a whole.
+ * 
+ * @author Oskar Grenholm, National Library of Sweden
+ */
 public class Aggregation extends AggregateBase {
 
 	private List<AggregatedResource> resources;

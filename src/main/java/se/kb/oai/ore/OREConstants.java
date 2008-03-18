@@ -18,6 +18,11 @@ package se.kb.oai.ore;
 
 import org.dom4j.Namespace;
 
+/**
+ * Constants regarding OAI-ORE.
+ * 
+ * @author Oskar Grenholm, National Library of Sweden
+ */
 public class OREConstants {
 
 	public static final String ATOM_NS_PREFIX = "atom";

@@ -16,6 +16,12 @@
 
 package se.kb.oai;
 
+/**
+ * A general exception that OAI4J throws. Often used to wrap lower-level
+ * exceptions. 
+ * 
+ * @author Oskar Grenholm, National Library of Sweden
+ */
 public class OAIException extends Exception {
     
     private static final long serialVersionUID = 5926653436917245659L;

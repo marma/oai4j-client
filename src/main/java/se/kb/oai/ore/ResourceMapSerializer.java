@@ -21,6 +21,19 @@ import java.io.IOException;
 
 import org.dom4j.Element;
 
+/**
+ * A <code>ResourceMapSerializer</code> is used to serialize the content of a 
+ * {@link ResourceMap} to a machine readable format (for example XML). Different
+ * implementations of this interface will handle serialization to different formats.
+ * <p>
+ * At the moment the Open Archive Initiative describes two possible serialization formats:
+ * <ul>
+ * 	<li> Atom - <a href="http://www.openarchives.org/ore/0.2/atom-implementation">http://www.openarchives.org/ore/0.2/atom-implementation</a>
+ * 	<li> RDF/XML - <a href="http://www.openarchives.org/ore/0.2/rdfsyntax">http://www.openarchives.org/ore/0.2/rdfsyntax</a>
+ * </ul>
+ * 
+ * @author Oskar Grenholm, National Library of Sweden
+ */
 public interface ResourceMapSerializer {
 
 	public void serializeToFile(File file, ResourceMap map) throws IOException;

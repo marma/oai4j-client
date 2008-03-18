@@ -22,6 +22,11 @@ import org.dom4j.QName;
 
 import se.kb.oai.ore.OREConstants;
 
+/**
+ * Constants concerning Atom feeds.
+ * 
+ * @author Oskar Grenholm, National Library of Sweden
+ */
 public class AtomConstants extends OREConstants {
 
 	public static final SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'");

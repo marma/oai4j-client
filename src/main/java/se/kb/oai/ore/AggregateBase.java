@@ -22,6 +22,13 @@ import java.util.List;
 
 import org.dom4j.QName;
 
+/**
+ * Abstract base class for those classes that make up an aggregation, i.e.
+ * <code>Aggregation</code> and <code>AggregatedResource</code>. It can be used to
+ * get and set <code>Types</code> and <code>Metadata</code>.
+ * 
+ * @author Oskar Grenholm, National Library of Sweden
+ */
 public abstract class AggregateBase {
 
 	protected URI id;
