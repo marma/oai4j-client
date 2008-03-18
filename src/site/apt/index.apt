@@ -10,5 +10,11 @@ OAI4J: a client library for PMH and ORE
 
  	OAI4J is an open-source client library for OAI-PMH and OAI-ORE created by the National Library of Sweden.
  	The library is object-oriented in it's design and written in Java. It can be used to harvest metadata from 
- 	OAI-PMH compliant repositories.It can also be used to create new OAI-ORE Resource Maps from scratch, to 
+ 	OAI-PMH compliant repositories. It can also be used to create new OAI-ORE Resource Maps from scratch, to 
  	parse existing ones and to serialize them to xml.
+ 	 
+	The Sourceforge page for this project can be found {{{http://www.sourceforge.net/projects/oai4j-client}here}}.
+ 	
+
+ 	
+ 	

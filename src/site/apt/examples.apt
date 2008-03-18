@@ -20,6 +20,8 @@ Dependencies
 	Both of these needs to be present on the classpath to successfully run OAI4J.
 
 Examples
+ 
+* OAI-PMH examples
 
 	To create an OaiPmhServer object and use it to retrieve a Record:
 
@@ -62,6 +64,7 @@ while (more) {
 
 +-----+	
 	
+* OAI-ORE examples
 	
 	To create an AtomFactory and use it to create a new ResourceMap:
 
