@@ -1,0 +1,29 @@
+ -----
+ OAI4J: a client library for PMH and ORE 
+ -----
+ Oskar Grenholm
+ -----
+ 2008-03-18
+ -----
+ 
+Releases
+ 
+ 	All releases can be found at the 
+ 	{{{http://sourceforge.net/project/showfiles.php?group_id=221177}Sourceforge Downloads page}}.
+ 	
+Source Code
+
+	The source code can be retrieved via Subversion from Sourceforge by following
+	{{{http://sourceforge.net/svn/?group_id=221177}these instructions}}.\
+	\
+	It can then be built by using the {{{http://maven.apache.org/}Maven}} tool. 
+	To create the jar file just type:
+	
++-----+
+mvn package	
++-----+
+
+	in the downloaded directory that has the pom.xml file. This will create 
+	an oai4j-VERSION.jar in the target/ directory.
+ 	
+	 	

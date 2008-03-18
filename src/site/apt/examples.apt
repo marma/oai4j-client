@@ -1,0 +1,131 @@
+ -----
+ OAI4J: a client library for PMH and ORE 
+ -----
+ Oskar Grenholm
+ -----
+ 2008-03-18
+ -----
+ 
+
+Dependencies	
+
+	OAI4J has two dependencies on other Java libraries:
+	
+	* dom4j-1.6.1.jar - {{http://www.dom4j.org}} 
+	
+	* jaxen-1.1.1.jar - {{http://jaxen.codehaus.org/}} 
+	
+	[]
+	
+	Both of these needs to be present on the classpath to successfully run OAI4J.
+
+Examples
+
+	To create an OaiPmhServer object and use it to retrieve a Record:
+
++-----+
+
+String baseurl = "http://magasin.kb.se:8080/oaiprovider/";
+OaiPmhServer server = new OaiPmhServer(baseurl);
+Record record = server.getRecord("oai:kb:1", "oai_dc");
+
++-----+
+	
+		
+	To get the metadata from the Record:
+	
++-----+
+
+Element metadata = record.getMetadata();
+// You can now use the org.dom4j.Element to handle the metadata as you see fit.
+
+// OR you can get the metadata as a String instead.
+String metadataString = record.getMetadataAsString();
+
++-----+	
+	
+	
+	To list ALL identifiers in the repository that has "oai_dc" metadata:
+	
++-----+
+
+IdentifiersList list = server.listIdentifiers("oai_dc");
+while (more) {
+  for (Header header : list.asList()) {
+    System.out.println(header.getIdentifier());
+  }
+  if (list.getResumptionToken() != null) 
+    list = oai.listIdentifiers(list.getResumptionToken());			
+  else 
+    more = false;
+}	
+
++-----+	
+	
+	
+	To create an AtomFactory and use it to create a new ResourceMap:
+
++-----+	
+
+// AtomFactory implements ResourceMapFactory
+AtomFactory factory = new AtomFactory();
+ResourceMap map = factory.newResourceMap("http://test.kb.se/rem/");
+
++-----+	
+	
+	
+	To populate the ResourceMap with metadata:
+
++-----+
+
+map.setCreator("OAI4J Library");
+map.setModified(new Date());
+map.setRights("http://creativecommons.org/licenses/by-nc-sa/2.5/");
+
++-----+
+	
+		
+	To populate the ResourceMap's Aggregation with an AggregatedResource:
+
++-----+
+
+Aggregation aggregation = map.getAggregation();
+AggregatedResource resource = new AggregatedResource("http://test.kb.se/docs/article.pdf");
+
+// Add what kind of resource it is.
+resource.addType(new Type("http://purl.org/dc/dcmitype/Text"));
+
+// Add the author of the article.
+resource.addMetadata(new Metadata(Namespace.DC, "creator", "Philip J. Fry"));
+
+// Add the AggregatedResource to the Aggregation.
+aggregation.addResource(resource);
+
++-----+
+	
+		
+	To create an AtomSerializer and use it to serialize the ResourceMap to a file:
+	
++-----+
+
+// AtomSerializer implements ResourceMapSerializer
+AtomSerializer serializer = new AtomSerializer();
+serializer.serializeToFile(new File("atom.xml"), map);
+
++-----+	
+
+	
+	To use an AtomFactory to parse an existing Atom feed and then modify it slightly:
+	
++-----+
+
+ResourceMap map = factory.getResourceMap("http://test.kb.se/atom.xml");
+
+// Add one more AggregatedResource to the Aggregation.
+map.getAggregation.addResource(aResource);
+
+// Set the modified date to now.
+map.setModified(new Date());
+
++-----+
+

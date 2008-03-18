@@ -20,7 +20,7 @@ public abstract class ListBase<T> extends ResponseBase {
     /**
      * Constructor.
      * 
-     * @param the response
+     * @param document the response
      * 
      * @throws ErrorResponseException
      */

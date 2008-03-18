@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project>
+  	<bannerLeft>
+  		<name>Sourceforge</name>
+  		<src>http://sflogo.sourceforge.net/sflogo.php?group_id=221177&amp;type=2</src>
+  		<href >http://sourceforge.net</href>
+	</bannerLeft>  
+  	<body>
+     	<links>
+     		<item name="OAI-PMH" href="http://www.openarchives.org/OAI/openarchivesprotocol.html"/>
+     		<item name="OAI-ORE" href="http://www.openarchives.org/ore/0.2/"/>
+     		<item name="National Library of Sweden" href="http://www.kb.se/"/>
+    	</links>
+
+    	<menu name="Documentation">
+    		<item name="Start Page" href="index.html"/>
+      		<item name="Getting Started" href="examples.html"/>
+      		<item name="Javadocs" href="apidocs/index.html"/>
+      		<item name="Downloads" href="downloads.html"/>
+    	</menu>
+    	<!--<menu ref="reports"/>-->
+  	</body>
+</project>
