@@ -36,9 +36,32 @@ import org.dom4j.Element;
  */
 public interface ResourceMapSerializer {
 
+	/**
+	 * Serialize the resource map to the given file.
+	 * 
+	 * @param file a file
+	 * @param map a resource map
+	 * 
+	 * @throws IOException
+	 */
 	public void serializeToFile(File file, ResourceMap map) throws IOException;
 	
+	/**
+	 * Serialize the resource map and return it as a <code>String</code>.
+	 * 
+	 * @param map a resource map
+	 * 
+	 * @return a <code>String</code> with the serialized resource map
+	 * @throws IOException
+	 */
 	public String serializeToString(ResourceMap map) throws IOException;	
 
+	/**
+	 * Serialize the resource map into XML.
+	 * 
+	 * @param map a resource map
+	 * 
+	 * @return an <code>Element</code> containing the result of the serialization
+	 */
 	public Element serializeToXml(ResourceMap map);
 }

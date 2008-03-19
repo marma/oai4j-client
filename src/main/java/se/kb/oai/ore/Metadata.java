@@ -21,7 +21,7 @@ import static se.kb.oai.ore.OREConstants.*;
 import org.dom4j.QName;
 
 /**
- * Class that represents metadata that can be set for an <code>Aggregation</code>
+ * Class that represents a metadata element that can be set for an <code>Aggregation</code>
  * or an <code>AggreagatedResource</code>. Only metadata from the Dublin Core elements
  * (DC) namespace or the Dublin Core terms (DCTERMS) namespace can be created.
  * 
@@ -34,23 +34,54 @@ public class Metadata {
 	private QName qname;
 	private String value;
 	
+	/**
+	 * Create a <code>Metadata</code>.
+	 * 
+	 * @param ns a namespace, can only be DC or DCTERMS
+	 * @param name the name of the metadata element
+	 * @param value the value of the metadata
+	 */
 	public Metadata(Namespace ns, String name, String value) {
 		this.qname = getName(ns, name);
 		this.value = value;
 	}
 	
+	/**
+	 * Get the qualified name of this metadata.
+	 * 
+	 * @return the name
+	 */
 	public QName getName() {
 		return qname;
 	}
 	
+	/**
+	 * Get the value of this metadata.
+	 * 
+	 * @return the value
+	 */
 	public String getValue() {
 		return value;
 	}
 	
+	/**
+	 * Set the value.
+	 * 
+	 * @param value the value
+	 */
 	public void setValue(String value) {
 		this.value = value;
 	}
 	
+	/**
+	 * Helper method that creates a qualified name with the given
+	 * namespace and name.
+	 * 
+	 * @param ns a namespace, can only be DC or DCTERMS
+	 * @param name the name
+	 * 
+	 * @return a qualified name
+	 */
 	public static QName getName(Namespace ns, String name) {
 		switch (ns) {
 			case DC: 		

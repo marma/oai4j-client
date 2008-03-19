@@ -25,10 +25,27 @@ import org.dom4j.Element;
 import org.dom4j.io.OutputFormat;
 import org.dom4j.io.XMLWriter;
 
+/**
+ * Utility class that has some static helper methods for handling XML.
+ * 
+ * @author Oskar Grenholm, National Library of Sweden
+ */
 public class XMLUtils {
 
 	public static final String ENCODING = "UTF-8"; 
 	
+	/* No need for a constructor. */
+	private XMLUtils() {}
+	
+	/**
+	 * Writes the XML contained in the <code>Element</code> to the specified
+	 * <code>OutputStream</code>.
+	 * 
+	 * @param element the XML element to write
+	 * @param stream the stream to write to
+	 * 
+	 * @throws IOException
+	 */
 	public static void writeXmlTo(Element element, OutputStream stream) throws IOException {
 		OutputStreamWriter writer = new OutputStreamWriter(stream, ENCODING);
         OutputFormat format = OutputFormat.createPrettyPrint();
@@ -40,6 +57,14 @@ public class XMLUtils {
         writer.flush();
 	}
 	
+	/**
+	 * Converts an <code>Element</code> to a <code>String</code>. 
+	 * 
+	 * @param xml the XML element to write
+	 * 
+	 * @return a <code>String</code> with the XML
+	 * @throws IOException
+	 */
 	public static String xmlToString(Element xml) throws IOException {
 		ByteArrayOutputStream stream = new ByteArrayOutputStream();
         writeXmlTo(xml, stream);        

@@ -33,31 +33,76 @@ public class Aggregation extends AggregateBase {
 
 	private List<AggregatedResource> resources;
 	
+	/**
+	 * Create an <code>Aggregation</code> with the specified id.
+	 * 
+	 * @param id the id
+	 * 
+	 * @throws URISyntaxException
+	 */
 	public Aggregation(String id) throws URISyntaxException {
 		this(new URI(id));
 	}
 	
+	/**
+	 * Create an <code>Aggregation</code> with the specified id.
+	 * 
+	 * @param id the id
+	 */
 	public Aggregation(URI id) {
 		super(id);
 		this.resources = new LinkedList<AggregatedResource>();
 	}
 		
+	/**
+	 * Get the number of resources that this <code>Aggregation</code> has.
+	 * 
+	 * @return the number of resources
+	 */
 	public int numberOfResources() {
 		return resources.size();
 	}
 	
+	/**
+	 * Get this <code>Aggregations</code> list of <code>AggreagatedResources</code>.
+	 * 
+	 * @return a list of resources
+	 */
 	public List<AggregatedResource> getResources() {
 		return resources;
 	}
 		
+	/**
+	 * Get the <code>AggreagatedResource</code> at the specified index.
+	 * (There is no guarantee of the ordering of the resources for different
+	 * parsings of the same resource map!)
+	 * 
+	 * @param index the index
+	 *
+	 * @return the resource
+	 */
 	public AggregatedResource getResource(int index) {
 		return resources.get(index);
 	}
 	
+	/**
+	 * Get the <code>AggreagatedResource</code> with the given id.
+	 * 
+	 * @param id the id of the resource
+	 *
+	 * @return the resource
+	 */
 	public AggregatedResource getResource(String id) throws URISyntaxException {
 		return getResource(new URI(id));
 	}
 	
+	/**
+	 * Get the <code>AggreagatedResource</code> with the given id.
+	 * 
+	 * @param id the id of the resource
+	 *
+	 * @return the resource, or <code>null</code> if no match
+	 */
 	public AggregatedResource getResource(URI id) {
 		for (AggregatedResource resource : resources) {
 			if (resource.getId().equals(id)) {
@@ -67,10 +112,20 @@ public class Aggregation extends AggregateBase {
 		return null;
 	}
 	
+	/**
+	 * Set the list of resources.
+	 * 
+	 * @param resources the list of resources
+	 */
 	public void setResources(List<AggregatedResource> resources) {
 		this.resources = resources;
 	}
 	
+	/**
+	 * Add an <code>AggreagatedResource</code> to this <code>Aggregation</code>.
+	 * 
+	 * @param resource a resource
+	 */
 	public void addResource(AggregatedResource resource) {
 		resources.add(resource);
 	}

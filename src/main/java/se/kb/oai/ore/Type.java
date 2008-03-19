@@ -17,7 +17,7 @@
 package se.kb.oai.ore;
 
 /**
- * Class that are used for typing <code>Aggreagations</code> and
+ * Class that are used for typing <code>Aggregations</code> and
  * <code>AggreagatedResources</code>.
  * 
  * @author Oskar Grenholm, National Library of Sweden
@@ -26,10 +26,20 @@ public class Type {
 
 	private String value;
 	
+	/**
+	 * Create a typing with this value.
+	 * 
+	 * @param value a value
+	 */
 	public Type(String value) {
 		this.value = value;
 	}
 
+	/**
+	 * Get the value.
+	 * 
+	 * @return the value
+	 */
 	public String getValue() {
 		return value;
 	}

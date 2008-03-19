@@ -40,13 +40,56 @@ import se.kb.oai.OAIException;
  */
 public interface ResourceMapFactory {
 
+	/**
+	 * Create a new <code>ResourceMap</code> with this id.
+	 * 
+	 * @param uri the id
+	 * 
+	 * @return a new resource map
+	 * @throws URISyntaxException
+	 */
 	public ResourceMap newResourceMap(String uri) throws URISyntaxException;
 	
+	/**
+	 * Create a new <code>ResourceMap</code> with this id.
+	 * 
+	 * @param uri the id
+	 * 
+	 * @return a new resource map
+	 */
 	public ResourceMap newResourceMap(URI uri);
 	
+	/**
+	 * Parse the content of the URL and create a <code>ResourceMap</code>
+	 * from it.
+	 * 
+	 * @param url a URL
+	 * 
+	 * @return a resource map representing the content of the URL
+	 * @throws OAIException
+	 */
 	public ResourceMap getResourceMap(URL url) throws OAIException;
 	
+
+	/**
+	 * Parse the content of the URL and create a <code>ResourceMap</code>
+	 * from it.
+	 * 
+	 * @param url a URL
+	 * 
+	 * @return a resource map representing the content of the URL
+	 * @throws OAIException
+	 */
 	public ResourceMap getResourceMap(String url) throws OAIException;
 	
+
+	/**
+	 * Parse the XML and create a <code>ResourceMap</code> from it.
+	 * 
+	 * @param root a XML element
+	 * 
+	 * @return a resource map representing the content of the XML
+	 * @throws OAIException
+	 */
 	public ResourceMap getResourceMap(Element root) throws OAIException;
 }

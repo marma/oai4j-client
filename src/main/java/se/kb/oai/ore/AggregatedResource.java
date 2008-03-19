@@ -31,17 +31,45 @@ import java.net.URISyntaxException;
  */
 public class AggregatedResource extends AggregateBase {
 	
+	/**
+	 * Create an <code>AggreagatedResource</code> with the specified id.
+	 * 
+	 * @param id the id
+	 * 
+	 * @throws URISyntaxException
+	 */
 	public AggregatedResource(String id) throws URISyntaxException {
 		this(new URI(id));
 	}
 	
+
+	/**
+	 * Create an <code>AggreagatedResource</code> with the specified id.
+	 * 
+	 * @param id the id
+	 */
 	public AggregatedResource(URI id) {
 		super(id);
 	}
 		
+	/**
+	 * Get an <code>InputStream</code> for the content held in this 
+	 * <code>AggreagatedResource</code>. 
+	 * 
+	 * @return a stream to the content
+	 * @throws IOException
+	 */
 	public InputStream getContent() throws IOException {
 		return id.toURL().openStream();
 	}
+	
+	/**
+	 * Get a <code>String</code> containing the content for this 
+	 * <code>AggreagatedResource</code>. 
+	 * 
+	 * @return a stream to the content
+	 * @throws IOException
+	 */
 	public String getContentAsString() throws IOException {
 		InputStream in = getContent();
 		ByteArrayOutputStream out = new ByteArrayOutputStream();
