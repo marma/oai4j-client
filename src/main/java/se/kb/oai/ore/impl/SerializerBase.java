@@ -19,6 +19,7 @@ package se.kb.oai.ore.impl;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.OutputStream;
 
 import org.dom4j.Element;
 
@@ -33,10 +34,14 @@ import se.kb.xml.XMLUtils;
  */
 public abstract class SerializerBase implements ResourceMapSerializer {
 
-	public void serializeToFile(File file, ResourceMap map) throws IOException {
-		FileOutputStream out = new FileOutputStream(file);
-		XMLUtils.writeXmlTo(serializeToXml(map), out);
-		out.close();
+	public void serializeToStream(ResourceMap map, OutputStream stream) throws IOException {
+		XMLUtils.writeXmlTo(serializeToXml(map), stream);		
+	}
+	
+	public void serializeToFile(ResourceMap map, File file) throws IOException {
+		FileOutputStream stream = new FileOutputStream(file);
+		serializeToStream(map, stream);
+		stream.close();
 	}
 
 	public String serializeToString(ResourceMap map) throws IOException {

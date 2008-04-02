@@ -117,6 +117,8 @@ public class AtomSerializer extends SerializerBase {
 
 			link = DocumentHelper.createElement(LINK);
 			link.addAttribute(REL, "alternate");
+			if (resource.getMimeType() != null)
+				link.addAttribute(MIME_TYPE, resource.getMimeType());
 			link.addAttribute(HREF, resource.getId().toString());
 			entry.add(link);
 			

@@ -53,6 +53,7 @@ public class AtomConstants extends OREConstants {
 	public static final String LABEL = "label";
 	public static final String REL = "rel";
 	public static final String HREF = "href";
+	public static final String MIME_TYPE = "type";
 	
 	public static final String ORE_TERMS_URL = "http://www.openarchives.org/ore/terms/";
 	public static final String ORE_TERMS_REM_URL = "http://www.openarchives.org/ore/terms/ResourceMap";

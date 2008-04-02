@@ -27,8 +27,7 @@ Examples
 
 +-----+
 
-String baseurl = "http://magasin.kb.se:8080/oaiprovider/";
-OaiPmhServer server = new OaiPmhServer(baseurl);
+OaiPmhServer server = new OaiPmhServer("http://magasin.kb.se:8080/oaiprovider/");
 Record record = server.getRecord("oai:kb:1", "oai_dc");
 
 +-----+
@@ -125,7 +124,7 @@ serializer.serializeToFile(new File("atom.xml"), map);
 ResourceMap map = factory.getResourceMap("http://test.kb.se/atom.xml");
 
 // Add one more AggregatedResource to the Aggregation.
-map.getAggregation.addResource(aResource);
+map.getAggregation().addResource(aResource);
 
 // Set the modified date to now.
 map.setModified(new Date());

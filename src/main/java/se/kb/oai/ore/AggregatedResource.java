@@ -31,6 +31,8 @@ import java.net.URISyntaxException;
  */
 public class AggregatedResource extends AggregateBase {
 	
+	private String mimetype;
+	
 	/**
 	 * Create an <code>AggreagatedResource</code> with the specified id.
 	 * 
@@ -51,7 +53,24 @@ public class AggregatedResource extends AggregateBase {
 	public AggregatedResource(URI id) {
 		super(id);
 	}
-		
+	/**
+	 * Get the MIME type (if known) for this <code>AggreagatedResource</code>. 
+	 * 
+	 * @return the MIME type, or <code>null</code> if not known
+	 */
+	public String getMimeType() {
+		return mimetype;
+	}
+	
+	/**
+	 * Set the MIME type for this <code>AggreagatedResource</code>. 
+	 * 
+	 * @param mimetype the MIME type
+	 */
+	public void setMimeType(String mimetype) {
+		this.mimetype = mimetype;
+	}
+	
 	/**
 	 * Get an <code>InputStream</code> for the content held in this 
 	 * <code>AggreagatedResource</code>. 

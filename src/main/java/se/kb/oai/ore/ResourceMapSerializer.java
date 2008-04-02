@@ -18,6 +18,7 @@ package se.kb.oai.ore;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.OutputStream;
 
 import org.dom4j.Element;
 
@@ -35,16 +36,26 @@ import org.dom4j.Element;
  * @author Oskar Grenholm, National Library of Sweden
  */
 public interface ResourceMapSerializer {
+	
+	/**
+	 * Serialize the resource map to an <code>OutputStream</code>.
+	 * 
+	 * @param map a resource map
+	 * @param stream a stream to serialize to
+	 * 
+	 * @throws IOException
+	 */
+	public void serializeToStream(ResourceMap map, OutputStream stream) throws IOException;
 
 	/**
 	 * Serialize the resource map to the given file.
 	 * 
-	 * @param file a file
 	 * @param map a resource map
+	 * @param file a file
 	 * 
 	 * @throws IOException
 	 */
-	public void serializeToFile(File file, ResourceMap map) throws IOException;
+	public void serializeToFile(ResourceMap map, File file) throws IOException;
 	
 	/**
 	 * Serialize the resource map and return it as a <code>String</code>.
