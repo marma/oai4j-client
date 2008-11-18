@@ -49,6 +49,17 @@ public class ResumptionToken {
         this.id = element.getTextTrim();
         this.expirationDate = element.attributeValue("expirationDate");
     }    
+    
+    /**
+     * Create a <code>ResumptionToken</code> from the an id and an expiration date.
+     * 
+     * @param id
+     * @param date
+     */
+    public ResumptionToken(String id, String expirationDate) {
+    	this.id = id;
+    	this.expirationDate = expirationDate;
+    }
 
     /**
      * Get the id of this resumption token.
